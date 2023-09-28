@@ -16,10 +16,14 @@ namespace Flashcards.DEVHAWKZ.Library.View
         internal static void PrintStacks(List<Stacks> stacks)
         {
             Console.Clear();
-            DataTable stackTable = PrintStacksDetails(stacks);
-            PrintHelper(stackTable);
-            
-           
+            if(stacks.Count > 0) 
+            {
+                DataTable stackTable = PrintStacksDetails(stacks);
+                PrintHelper(stackTable);
+            }
+
+            else
+                Console.WriteLine("There is no stack created yet!");
         }
     }
 }

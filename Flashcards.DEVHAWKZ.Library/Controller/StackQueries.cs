@@ -53,7 +53,7 @@ internal class StackQueries : Queries
 
         int id = Validations.GetValidInt();
 
-        bool possible = possibleUpdate(id);
+        bool possible = possibleQuery(id);
 
         if(possible) 
         {
@@ -89,7 +89,47 @@ internal class StackQueries : Queries
         }
     }
 
-    private bool possibleUpdate(int id)
+    internal void DeleteStack()
+    {
+        TableVisualizationEngine.PrintStacks(ViewStacks());
+
+        int id = Validations.GetValidInt();
+
+        bool possible = possibleQuery(id);
+
+        if (possible)
+        {
+            using (IDbConnection connection = new SqlConnection(ConnectionString))
+            {
+                string storedProcedureName = "DeleteStack";
+
+                var parameters = new DynamicParameters();
+                parameters.Add("@Id", id);
+
+                int rows = connection.Execute(storedProcedureName, parameters, commandType: CommandType.StoredProcedure);
+
+                if (rows > 0)
+                {
+                    Console.WriteLine("\nStack deleted succesfully!");
+                    Console.ReadKey();
+                }
+
+                else
+                {
+                    Console.WriteLine("\nErasing the stach has failed.");
+                    Console.ReadKey();
+                }
+            }
+        }
+
+        else
+        {
+            Console.WriteLine("\nThe id you have entered doesn't exist");
+            Console.ReadKey();
+        }
+    }
+
+    private bool possibleQuery(int id)
     {
         using (IDbConnection connection = new SqlConnection(ConnectionString))
         {

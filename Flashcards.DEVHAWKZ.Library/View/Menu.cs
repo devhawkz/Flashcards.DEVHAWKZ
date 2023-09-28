@@ -114,8 +114,7 @@ public class Menu
 
             case "delete":
                 Console.Clear();
-                Console.WriteLine("delete");
-                Console.ReadKey();
+                stackQueries.DeleteStack();
                 break;
 
             default:
