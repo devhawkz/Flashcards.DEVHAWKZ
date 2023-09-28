@@ -1,15 +1,24 @@
 ﻿using System.Data;
 using static Flashcards.DEVHAWKZ.Library.View.TableVisualizationHelpers;
+using Flashcards.DEVHAWKZ.Library.Model;
 
 namespace Flashcards.DEVHAWKZ.Library.View
 {
-    internal class TableVisualizationEngine
+    internal static class TableVisualizationEngine
     {
-        internal void PrintMenu(Dictionary<string, string> menu)
+        internal static void PrintMenu(Dictionary<string, string> menu)
         {
             Console.Clear();
             DataTable menuTable = PrintDetails(menu);
-            PrintMenuHelper(menuTable);
+            PrintHelper(menuTable);
+        }
+
+        internal static void PrintStacks(List<Stacks> stacks)
+        {
+            Console.Clear();
+            DataTable stackTable = PrintStacksDetails(stacks);
+            PrintHelper(stackTable);
+           
         }
     }
 }

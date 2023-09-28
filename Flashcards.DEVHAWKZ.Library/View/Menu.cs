@@ -1,11 +1,10 @@
 ﻿using Flashcards.DEVHAWKZ.Library.Controller;
+using static Flashcards.DEVHAWKZ.Library.View.TableVisualizationEngine;
 
 namespace Flashcards.DEVHAWKZ.Library.View;
 
 public class Menu
 {
-    TableVisualizationEngine viewEngine = new();
-
     private string ShowMainMenu()
     {
         Dictionary<string, string> menu = new Dictionary<string, string>()
@@ -17,13 +16,14 @@ public class Menu
             {"reports", "Various reports about study sessions" }
         };
 
-        viewEngine.PrintMenu(menu);
+       PrintMenu(menu);
 
         return Validations.GetValidString();
     }
 
     private bool MainMenuOptions(string option)
     {
+        
         switch (option) 
         {
             case "exit":
@@ -80,8 +80,51 @@ public class Menu
 
     private string ShowStackMenu()
     {
-        viewEngine.PrintMenu(Helpers.GetMenuDetails("stack"));
+        PrintMenu(Helpers.GetMenuDetails("stack"));
         return Validations.GetValidString();
+    }
+
+    private static bool StackMenuOptions(string option)
+    {
+        StackQueries stackQueries = new();
+
+        switch (option)
+        {
+            case "main menu":
+                return false;
+
+            case "insert":
+                Console.Clear();
+                Console.WriteLine("insert");
+                Console.ReadKey();
+                break;
+
+            case "view":
+                Console.Clear();
+                PrintStacks(stackQueries.View());
+                Console.ReadKey();
+                break;
+
+
+            case "update":
+                Console.Clear();
+                Console.WriteLine("update");
+                Console.ReadKey();
+                break;
+
+            case "delete":
+                Console.Clear();
+                Console.WriteLine("delete");
+                Console.ReadKey();
+                break;
+
+            default:
+                Console.WriteLine("\n----------------------------------------------------------------------------\nInvalid option. Please try again.");
+                Console.ReadKey();
+                break;
+        }
+
+        return true;
     }
 
     private void StackMenu()
@@ -91,7 +134,7 @@ public class Menu
         while (continueStackMenu)
         {
             string option = ShowStackMenu();
-            continueStackMenu = Helpers.MenuOptions(option);
+            continueStackMenu = StackMenuOptions(option);
         }
     }
 
@@ -99,8 +142,49 @@ public class Menu
 
     private string ShowFlashcardMenu()
     {
-        viewEngine.PrintMenu(Helpers.GetMenuDetails("flashcard"));
+        PrintMenu(Helpers.GetMenuDetails("flashcard"));
         return Validations.GetValidString();
+    }
+
+    internal static bool FlashcardMenuOptions(string option)
+    {
+        switch (option)
+        {
+            case "main menu":
+                return false;
+
+            case "insert":
+                Console.Clear();
+                Console.WriteLine("insert");
+                Console.ReadKey();
+                break;
+
+            case "view":
+                Console.Clear();
+                Console.WriteLine("view");
+                Console.ReadKey();
+                break;
+
+
+            case "update":
+                Console.Clear();
+                Console.WriteLine("update");
+                Console.ReadKey();
+                break;
+
+            case "delete":
+                Console.Clear();
+                Console.WriteLine("delete");
+                Console.ReadKey();
+                break;
+
+            default:
+                Console.WriteLine("\n----------------------------------------------------------------------------\nInvalid option. Please try again.");
+                Console.ReadKey();
+                break;
+        }
+
+        return true;
     }
 
     private void FlashcardMenu()
@@ -110,7 +194,7 @@ public class Menu
         while (continueFlashcardMenu)
         {
             string option = ShowFlashcardMenu();
-            continueFlashcardMenu = Helpers.MenuOptions(option);
+            continueFlashcardMenu = FlashcardMenuOptions(option);
         }
     }
 
@@ -125,7 +209,7 @@ public class Menu
             {"view", "View all study sessions"},
         };
 
-        viewEngine.PrintMenu(menu);
+        PrintMenu(menu);
 
         return Validations.GetValidString();
     }

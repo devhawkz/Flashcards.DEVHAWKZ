@@ -1,10 +1,28 @@
 ﻿using ConsoleTableExt;
 using System.Data;
+using Flashcards.DEVHAWKZ.Library.Model;
+
 
 namespace Flashcards.DEVHAWKZ.Library.View;
 
 internal static class TableVisualizationHelpers
 {
+    internal static DataTable PrintStacksDetails(List<Stacks> sessions)
+    {
+        DataTable stackTable = new DataTable();
+        stackTable.Columns.Add("ID", typeof(int));
+        stackTable.Columns.Add("Name", typeof(string));
+
+        for (int i = 0; i < sessions.Count; i++)
+        {
+            stackTable.Rows.Add(sessions[i].Id, sessions[i].Name);
+        }
+
+        return stackTable;
+    }
+
+    /* MENUES */
+
     internal static DataTable PrintDetails(Dictionary<string, string> menu)
     {
         DataTable menuTable = new DataTable();
@@ -21,10 +39,10 @@ internal static class TableVisualizationHelpers
         return menuTable;
     }
 
-    internal static void PrintMenuHelper(DataTable menuTable)
+    internal static void PrintHelper(DataTable table)
     {
        
-        ConsoleTableBuilder.From(menuTable)
+        ConsoleTableBuilder.From(table)
             .WithTextAlignment(new Dictionary<int, TextAligntment>
             {
                 {0, TextAligntment.Center },
@@ -53,4 +71,5 @@ internal static class TableVisualizationHelpers
             .ExportAndWriteLine(TableAligntment.Center);
     }
 
+    
 }
