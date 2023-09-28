@@ -109,8 +109,7 @@ public class Menu
 
             case "update":
                 Console.Clear();
-                Console.WriteLine("update");
-                Console.ReadKey();
+                stackQueries.UpdateStack();
                 break;
 
             case "delete":

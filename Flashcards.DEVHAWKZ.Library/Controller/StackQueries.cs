@@ -2,18 +2,17 @@
 using Microsoft.Data.SqlClient;
 using System.Data;
 using Flashcards.DEVHAWKZ.Library.Model;
-using System.Net.WebSockets;
+using Flashcards.DEVHAWKZ.Library.View;
+
 
 namespace Flashcards.DEVHAWKZ.Library.Controller;
 
 internal class StackQueries : Queries
 {
-    internal  List<Stacks> ViewStacks()
+    internal List<Stacks> ViewStacks()
     {
-
         using (IDbConnection connection = new SqlConnection(ConnectionString))
         {
-            
             string storedProcedureName = "ViewStacks";
 
             List<Stacks> stacks = connection.Query<Stacks>(storedProcedureName, commandType: CommandType.StoredProcedure).ToList();
@@ -45,6 +44,66 @@ internal class StackQueries : Queries
                 Console.WriteLine("\nStack insertion failed.");
                 Console.ReadKey();
             }
+        }
+    }
+
+    internal void UpdateStack()
+    {
+        TableVisualizationEngine.PrintStacks(ViewStacks());
+
+        int id = Validations.GetValidInt();
+
+        bool possible = possibleUpdate(id);
+
+        if(possible) 
+        {
+            using (IDbConnection connection = new SqlConnection(ConnectionString)) 
+            {
+                string name = Validations.GetValidString();
+                string storedProcedureName = "UpdateStack";
+
+                var parameters = new DynamicParameters();
+                parameters.Add("@Id", id);
+                parameters.Add("@Name", name);
+
+                int rows = connection.Execute(storedProcedureName, parameters, commandType: CommandType.StoredProcedure);
+
+                if(rows > 0) 
+                {
+                    Console.WriteLine("\nStack updated succesfully!");
+                    Console.ReadKey();
+                }
+
+                else
+                {
+                    Console.WriteLine("\nStack update failed.");
+                    Console.ReadKey();
+                }
+            }
+        }
+
+        else
+        {
+            Console.WriteLine("\nThe id you have entered doesn't exist");
+            Console.ReadKey();
+        }
+    }
+
+    private bool possibleUpdate(int id)
+    {
+        using (IDbConnection connection = new SqlConnection(ConnectionString))
+        {
+            string storedProcedureName = "PossibleStackUpdate";
+
+            var parameters = new DynamicParameters();
+            parameters.Add("@Id", id);
+
+            var result = connection.QueryFirstOrDefault(storedProcedureName, parameters, commandType: CommandType.StoredProcedure);
+            
+            if(result != null) 
+                return true;
+            else
+                return false;
         }
     }
 }

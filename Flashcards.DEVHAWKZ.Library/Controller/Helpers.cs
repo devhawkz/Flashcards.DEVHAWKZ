@@ -1,4 +1,6 @@
-﻿namespace Flashcards.DEVHAWKZ.Library.Controller;
+﻿using Flashcards.DEVHAWKZ.Library.Model;
+
+namespace Flashcards.DEVHAWKZ.Library.Controller;
 
 internal class Helpers
 {
@@ -72,4 +74,5 @@ internal class Helpers
 
         return stackName;
     }
+
 }
