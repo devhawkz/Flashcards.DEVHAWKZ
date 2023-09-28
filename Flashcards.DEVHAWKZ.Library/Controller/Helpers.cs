@@ -15,4 +15,45 @@ internal class Helpers
 
         return menu;
     }
+
+    internal static bool MenuOptions(string option)
+    {
+        switch (option)
+        {
+            case "main menu":
+                return false;
+
+            case "insert":
+                Console.Clear();
+                Console.WriteLine("insert");
+                Console.ReadKey();
+                break;
+
+            case "view":
+                Console.Clear();
+                Console.WriteLine("view");
+                Console.ReadKey();
+                break;
+
+
+            case "update":
+                Console.Clear();
+                Console.WriteLine("update");
+                Console.ReadKey();
+                break;
+
+            case "delete":
+                Console.Clear();
+                Console.WriteLine("delete");
+                Console.ReadKey();
+                break;
+
+            default:
+                Console.WriteLine("\n----------------------------------------------------------------------------\nInvalid option. Please try again.");
+                Console.ReadKey();
+                break;
+        }
+
+        return true;
+    }
 }

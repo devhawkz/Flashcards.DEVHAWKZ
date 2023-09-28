@@ -19,10 +19,7 @@ public class Menu
 
         viewEngine.PrintMenu(menu);
 
-        Console.Write("Your option: ");
-        string option = Validations.GetValidString(Console.ReadLine());
-
-        return option;
+        return Validations.GetValidString();
     }
 
     private bool MainMenuOptions(string option)
@@ -39,15 +36,13 @@ public class Menu
 
             case "flashcard":
                 Console.Clear();
-                Console.WriteLine("flashcard");
-                Console.ReadKey();
+                FlashcardMenu();
                 break;
 
 
             case "study":
                 Console.Clear();
-                Console.WriteLine("study");
-                Console.ReadKey();
+                StudyMenu();
                 break;
 
             case "reports":
@@ -86,47 +81,7 @@ public class Menu
     private string ShowStackMenu()
     {
         viewEngine.PrintMenu(Helpers.GetMenuDetails("stack"));
-        
-        Console.Write("Your option: ");
-        string option = Validations.GetValidOption(Console.ReadLine());
-
-        return option;
-    }
-
-    private bool StackMenuOptions(string option)
-    {
-        switch (option)
-        {
-            case "main menu":
-                return false;
-
-            case "insert":
-                Console.Clear();
-                Console.WriteLine("insert");
-                Console.ReadKey();
-                break;
-
-            case "view":
-                Console.Clear();
-                Console.WriteLine("view");
-                Console.ReadKey();
-                break;
-
-
-            case "update":
-                Console.Clear();
-                Console.WriteLine("update");
-                Console.ReadKey();
-                break;
-
-            case "delete":
-                Console.Clear();
-                Console.WriteLine("delete");
-                Console.ReadKey();
-                break;
-        }
-
-        return true;
+        return Validations.GetValidString();
     }
 
     private void StackMenu()
@@ -136,7 +91,81 @@ public class Menu
         while (continueStackMenu)
         {
             string option = ShowStackMenu();
-            continueStackMenu = StackMenuOptions(option);
+            continueStackMenu = Helpers.MenuOptions(option);
+        }
+    }
+
+    /* FLASHCARDS MENU */
+
+    private string ShowFlashcardMenu()
+    {
+        viewEngine.PrintMenu(Helpers.GetMenuDetails("flashcard"));
+        return Validations.GetValidString();
+    }
+
+    private void FlashcardMenu()
+    {
+        bool continueFlashcardMenu = true;
+
+        while (continueFlashcardMenu)
+        {
+            string option = ShowFlashcardMenu();
+            continueFlashcardMenu = Helpers.MenuOptions(option);
+        }
+    }
+
+    /* STUDY MENU */
+
+    private string ShowStudyMenu()
+    {
+        Dictionary<string, string> menu = new Dictionary<string, string>()
+        {
+            {"main menu", "Get back to main menu" },
+            {"start" , "Start new study session"},
+            {"view", "View all study sessions"},
+        };
+
+        viewEngine.PrintMenu(menu);
+
+        return Validations.GetValidString();
+    }
+
+    private bool StudyMenuOptions(string option)
+    {
+        switch (option)
+        {
+            case "main menu":
+                return false;
+
+            case "start":
+                Console.Clear();
+                Console.WriteLine("start");
+                Console.ReadKey();
+                break;
+
+            case "view":
+                Console.Clear();
+                Console.WriteLine("view");
+                Console.ReadKey();
+                break;
+
+            default:
+                Console.WriteLine("\n----------------------------------------------------------------------------\nInvalid option. Please try again.");
+                Console.ReadKey();
+                break;
+        }
+
+        return true;
+    }
+
+    public void StudyMenu()
+    {
+        bool continueStudyApp = true;
+
+        while (continueStudyApp)
+        {
+            string option = ShowStudyMenu();
+            continueStudyApp = StudyMenuOptions(option);
         }
     }
 }

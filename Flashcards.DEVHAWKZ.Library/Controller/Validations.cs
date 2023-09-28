@@ -2,30 +2,19 @@
 {
     internal static class Validations
     {
-        internal static string GetValidString(string s)
+        internal static string GetValidString()
         {
-            while(string.IsNullOrEmpty(s)) 
+            Console.Write("Your option: ");
+            string option = Console.ReadLine();
+
+            while (string.IsNullOrEmpty(option)) 
             {
                 Console.WriteLine("\n----------------------------------------------------------------------------\nInvalid input.Please try again.");
-                Console.Write("Your option: ");
-                s = Console.ReadLine();
-            }
-
-            return s.ToLower().Trim();
-        }
-
-        internal static string GetValidOption(string option)
-        {
-            string[] options = new string[] {"main menu", "view", "insert", "update", "delete"};
-
-            while(!options.Contains(option)) 
-            {
-                Console.WriteLine("\n----------------------------------------------------------------------------\nInvalid option. Please try again.");
                 Console.Write("Your option: ");
                 option = Console.ReadLine();
             }
 
-            return option.ToLower().Trim();
+            return option;
         }
     }
 }
