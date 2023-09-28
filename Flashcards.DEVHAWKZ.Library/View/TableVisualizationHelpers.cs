@@ -18,15 +18,12 @@ internal static class TableVisualizationHelpers
             menuTable.Rows.Add(pair.Key, pair.Value);
         }
 
-
-
         return menuTable;
     }
 
     internal static void PrintMenuHelper(DataTable menuTable)
     {
        
-
         ConsoleTableBuilder.From(menuTable)
             .WithTextAlignment(new Dictionary<int, TextAligntment>
             {

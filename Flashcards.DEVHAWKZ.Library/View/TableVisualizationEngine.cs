@@ -8,10 +8,8 @@ namespace Flashcards.DEVHAWKZ.Library.View
         internal void PrintMenu(Dictionary<string, string> menu)
         {
             Console.Clear();
-
             DataTable menuTable = PrintDetails(menu);
             PrintMenuHelper(menuTable);
-            
         }
     }
 }

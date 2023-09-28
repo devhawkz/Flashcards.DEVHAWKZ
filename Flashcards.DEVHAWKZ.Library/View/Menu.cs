@@ -27,15 +27,14 @@ public class Menu
 
     private bool MainMenuOptions(string option)
     {
-        switch (option.ToLower().Trim()) 
+        switch (option) 
         {
             case "exit":
                 return false;
 
             case "stack":
                 Console.Clear();
-                Console.WriteLine("stacks");
-                Console.ReadKey();
+                StackMenu();
                 break;
 
             case "flashcard":
@@ -80,5 +79,64 @@ public class Menu
         Console.Clear();
         Console.WriteLine("Thank you for using our app!\n\nPress any key to exit...");
         Console.ReadKey();
+    }
+
+    /* STACK MENU */
+
+    private string ShowStackMenu()
+    {
+        viewEngine.PrintMenu(Helpers.GetMenuDetails("stack"));
+        
+        Console.Write("Your option: ");
+        string option = Validations.GetValidOption(Console.ReadLine());
+
+        return option;
+    }
+
+    private bool StackMenuOptions(string option)
+    {
+        switch (option)
+        {
+            case "main menu":
+                return false;
+
+            case "insert":
+                Console.Clear();
+                Console.WriteLine("insert");
+                Console.ReadKey();
+                break;
+
+            case "view":
+                Console.Clear();
+                Console.WriteLine("view");
+                Console.ReadKey();
+                break;
+
+
+            case "update":
+                Console.Clear();
+                Console.WriteLine("update");
+                Console.ReadKey();
+                break;
+
+            case "delete":
+                Console.Clear();
+                Console.WriteLine("delete");
+                Console.ReadKey();
+                break;
+        }
+
+        return true;
+    }
+
+    private void StackMenu()
+    {
+        bool continueStackMenu = true;
+
+        while (continueStackMenu)
+        {
+            string option = ShowStackMenu();
+            continueStackMenu = StackMenuOptions(option);
+        }
     }
 }
