@@ -95,13 +95,14 @@ public class Menu
 
             case "insert":
                 Console.Clear();
-                Console.WriteLine("insert");
+                stackQueries.InsertNewStack();
+                Console.WriteLine("Press any key to continue...");
                 Console.ReadKey();
                 break;
 
             case "view":
                 Console.Clear();
-                PrintStacks(stackQueries.View());
+                PrintStacks(stackQueries.ViewStacks());
                 Console.ReadKey();
                 break;
 

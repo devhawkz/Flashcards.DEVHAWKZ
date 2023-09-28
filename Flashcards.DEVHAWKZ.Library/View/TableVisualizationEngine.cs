@@ -18,6 +18,7 @@ namespace Flashcards.DEVHAWKZ.Library.View
             Console.Clear();
             DataTable stackTable = PrintStacksDetails(stacks);
             PrintHelper(stackTable);
+            Console.WriteLine("\nPress any key to get back...");
            
         }
     }

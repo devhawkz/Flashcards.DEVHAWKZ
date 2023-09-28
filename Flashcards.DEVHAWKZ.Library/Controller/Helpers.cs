@@ -56,4 +56,20 @@ internal class Helpers
 
         return true;
     }
+
+    internal static string GetStackName()
+    {
+        Console.Clear();
+        Console.Write("Enter new stack name: ");
+        string stackName = Console.ReadLine();
+
+        while(string.IsNullOrEmpty(stackName))
+        {
+            Console.WriteLine("\n----------------------------------------------------------------------------\nInvalid input.Please try again.");
+            Console.Write("Enter new stack name: ");
+            stackName = Console.ReadLine();
+        }
+
+        return stackName;
+    }
 }
