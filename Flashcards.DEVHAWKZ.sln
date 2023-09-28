@@ -5,6 +5,8 @@ VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flashcards.DEVHAWKZ", "Flashcards.DEVHAWKZ\Flashcards.DEVHAWKZ.csproj", "{BABDA2D0-AF5E-432F-9F83-0B18B5AB7BCD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flashcards.DEVHAWKZ.Library", "Flashcards.DEVHAWKZ.Library\Flashcards.DEVHAWKZ.Library.csproj", "{217B8E05-C0E0-4B54-8A91-4E8AB665E4B9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{BABDA2D0-AF5E-432F-9F83-0B18B5AB7BCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BABDA2D0-AF5E-432F-9F83-0B18B5AB7BCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BABDA2D0-AF5E-432F-9F83-0B18B5AB7BCD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{217B8E05-C0E0-4B54-8A91-4E8AB665E4B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{217B8E05-C0E0-4B54-8A91-4E8AB665E4B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{217B8E05-C0E0-4B54-8A91-4E8AB665E4B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{217B8E05-C0E0-4B54-8A91-4E8AB665E4B9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
