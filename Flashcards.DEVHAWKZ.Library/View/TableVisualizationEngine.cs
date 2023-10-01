@@ -1,6 +1,6 @@
-﻿using System.Data;
+﻿using Flashcards.DEVHAWKZ.Library.Model;
+using System.Data;
 using static Flashcards.DEVHAWKZ.Library.View.TableVisualizationHelpers;
-using Flashcards.DEVHAWKZ.Library.Model;
 
 namespace Flashcards.DEVHAWKZ.Library.View
 {
@@ -24,6 +24,19 @@ namespace Flashcards.DEVHAWKZ.Library.View
 
             else
                 Console.WriteLine("There is no stack created yet!");
+        }
+
+        internal static void PrintFlashcards(List<Flashcard> flashcards)
+        {
+            Console.Clear();
+            if (flashcards.Count > 0)
+            {
+                DataTable stackTable = PrintFlashcardsDetails(flashcards);
+                PrintHelper(stackTable);
+            }
+
+            else
+                Console.WriteLine("There is no flashcard created yet!");
         }
     }
 }

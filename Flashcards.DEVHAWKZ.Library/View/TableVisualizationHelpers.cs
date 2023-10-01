@@ -7,18 +7,34 @@ namespace Flashcards.DEVHAWKZ.Library.View;
 
 internal static class TableVisualizationHelpers
 {
-    internal static DataTable PrintStacksDetails(List<Stacks> sessions)
+    internal static DataTable PrintStacksDetails(List<Stacks> stacks)
     {
         DataTable stackTable = new DataTable();
         stackTable.Columns.Add("ID", typeof(int));
         stackTable.Columns.Add("Name", typeof(string));
 
-        for (int i = 0; i < sessions.Count; i++)
+        for (int i = 0; i < stacks.Count; i++)
         {
-            stackTable.Rows.Add(sessions[i].Id, sessions[i].Name);
+            stackTable.Rows.Add(stacks[i].Id, stacks[i].Name);
         }
 
         return stackTable;
+    }
+
+    internal static DataTable PrintFlashcardsDetails(List<Flashcard> flashcards)
+    {
+        DataTable flashcardsTable = new DataTable();
+        flashcardsTable.Columns.Add("ID", typeof(int));
+        flashcardsTable.Columns.Add("Question", typeof(string));
+        flashcardsTable.Columns.Add("Answer", typeof(string));
+        flashcardsTable.Columns.Add("Stack name", typeof(string));
+
+        for (int i = 0; i < flashcards.Count; i++)
+        {
+            flashcardsTable.Rows.Add(flashcards[i].Id, flashcards[i].Question, flashcards[i].Answer, flashcards[i].StackName);
+        }
+
+        return flashcardsTable;
     }
 
     /* MENUES */

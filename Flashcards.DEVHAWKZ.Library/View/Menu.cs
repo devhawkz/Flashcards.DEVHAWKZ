@@ -147,6 +147,8 @@ public class Menu
 
     internal static bool FlashcardMenuOptions(string option)
     {
+        FlashcardQueries flashcardQueries = new FlashcardQueries();
+
         switch (option)
         {
             case "main menu":
@@ -160,7 +162,7 @@ public class Menu
 
             case "view":
                 Console.Clear();
-                Console.WriteLine("view");
+                PrintFlashcards(flashcardQueries.ViewFlashcards());
                 Console.ReadKey();
                 break;
 
