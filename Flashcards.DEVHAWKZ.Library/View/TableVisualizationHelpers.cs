@@ -66,7 +66,7 @@ internal static class TableVisualizationHelpers
             })
             .WithMinLength(new Dictionary<int, int>
             {
-                {1, 75 },
+                {1, 65 },
                 {2, 30 }
             })
             .WithCharMapDefinition(

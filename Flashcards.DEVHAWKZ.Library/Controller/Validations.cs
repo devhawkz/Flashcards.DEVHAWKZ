@@ -4,24 +4,24 @@ namespace Flashcards.DEVHAWKZ.Library.Controller
 {
     internal static class Validations
     {
-        internal static string GetValidString()
+        internal static string GetValidString(string message = "Your option: ")
         {
-            Console.Write("Your option: ");
+            Console.Write($"{message}");
             string option = Console.ReadLine();
 
             while (string.IsNullOrEmpty(option)) 
             {
                 Console.WriteLine("\n----------------------------------------------------------------------------\nInvalid input.Please try again.");
-                Console.Write("Your option: ");
+                Console.Write($"{message}");
                 option = Console.ReadLine();
             }
 
             return option;
         }
 
-        internal static int GetValidInt() 
+        internal static int GetValidInt(string message) 
         {
-            Console.Write("Enter id of a row you wish to update: ");
+            Console.Write($"{message}");
             string idText = Console.ReadLine();
 
             int id;
@@ -29,7 +29,7 @@ namespace Flashcards.DEVHAWKZ.Library.Controller
             while (!int.TryParse(idText, out id))
             {
                 Console.WriteLine("\n----------------------------------------------------------------------------\nInvalid input.Please try again.");
-                Console.Write("Enter id of a stack you want to update: ");
+                Console.Write($"{message}");
                 idText = Console.ReadLine();
             }
 

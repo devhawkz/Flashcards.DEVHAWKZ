@@ -2,7 +2,7 @@
 using Microsoft.Data.SqlClient;
 using System.Data;
 using Flashcards.DEVHAWKZ.Library.Model;
-using Flashcards.DEVHAWKZ.Library.View;
+using static Flashcards.DEVHAWKZ.Library.View.TableVisualizationEngine;
 
 namespace Flashcards.DEVHAWKZ.Library.Controller
 {
@@ -25,63 +25,30 @@ namespace Flashcards.DEVHAWKZ.Library.Controller
         
         internal void InsertNewFlashcard()
         {
-            
-
-            using (IDbConnection connection = new SqlConnection(ConnectionString))
-            {
-                string storedprocedureName = "InsertFlashcard";
-
-                var parameters = new DynamicParameters();
-                parameters.Add("@Question", Helpers.GetStackName());
-                parameters.Add("@Answer", Helpers.GetStackName());
-
-                int rows = connection.Execute(storedprocedureName, parameters, commandType: CommandType.StoredProcedure);
-
-                if (rows > 0)
-                {
-                    Console.WriteLine("\nStack inserted succesfully!");
-                    Console.ReadKey();
-                }
-
-                else
-                {
-                    Console.WriteLine("\nStack insertion failed.");
-                    Console.ReadKey();
-                }
-            }
-        }
-
-        /*
-        internal void UpdateStack()
-        {
-            TableVisualizationEngine.PrintStacks(ViewStacks());
-
-            int id = Validations.GetValidInt();
-
-            bool possible = possibleQuery(id);
+           bool possible = Helpers.GetStackID(out int id);
 
             if (possible)
             {
                 using (IDbConnection connection = new SqlConnection(ConnectionString))
                 {
-                    string name = Validations.GetValidString();
-                    string storedProcedureName = "UpdateStack";
+                    string storedprocedureName = "InsertFlashcard";
 
                     var parameters = new DynamicParameters();
-                    parameters.Add("@Id", id);
-                    parameters.Add("@Name", name);
+                    parameters.Add("@Question", Helpers.GetQuestionOrAnswer("question"));
+                    parameters.Add("@Answer", Helpers.GetQuestionOrAnswer("answer"));
+                    parameters.Add("@Stack_Id", id);
 
-                    int rows = connection.Execute(storedProcedureName, parameters, commandType: CommandType.StoredProcedure);
+                    int rows = connection.Execute(storedprocedureName, parameters, commandType: CommandType.StoredProcedure);
 
                     if (rows > 0)
                     {
-                        Console.WriteLine("\nStack updated succesfully!");
+                        Console.WriteLine("\nFlashcard inserted succesfully!");
                         Console.ReadKey();
                     }
 
                     else
                     {
-                        Console.WriteLine("\nStack update failed.");
+                        Console.WriteLine("\nFlashcard insertion failed.");
                         Console.ReadKey();
                     }
                 }
@@ -94,34 +61,36 @@ namespace Flashcards.DEVHAWKZ.Library.Controller
             }
         }
 
-        internal void DeleteStack()
+        internal void UpdateFlashcard()
         {
-            TableVisualizationEngine.PrintStacks(ViewStacks());
+            PrintFlashcards(ViewFlashcards());
 
-            int id = Validations.GetValidInt();
+            int id = Validations.GetValidInt("Enter a row you want to update: ");
 
-            bool possible = possibleQuery(id);
+            bool possible = PossibleQuery(id);
 
             if (possible)
             {
                 using (IDbConnection connection = new SqlConnection(ConnectionString))
                 {
-                    string storedProcedureName = "DeleteStack";
+                    string storedProcedureName = "UpdateFlashcards";
 
                     var parameters = new DynamicParameters();
                     parameters.Add("@Id", id);
+                    parameters.Add("@Question", Helpers.GetQuestionOrAnswer("question"));
+                    parameters.Add("@Answer", Helpers.GetQuestionOrAnswer("answer"));
 
                     int rows = connection.Execute(storedProcedureName, parameters, commandType: CommandType.StoredProcedure);
 
                     if (rows > 0)
                     {
-                        Console.WriteLine("\nStack deleted succesfully!");
+                        Console.WriteLine("\nFlashcard updated succesfully!");
                         Console.ReadKey();
                     }
 
                     else
                     {
-                        Console.WriteLine("\nErasing the stach has failed.");
+                        Console.WriteLine("\nFlashcard update failed.");
                         Console.ReadKey();
                     }
                 }
@@ -134,11 +103,11 @@ namespace Flashcards.DEVHAWKZ.Library.Controller
             }
         }
 
-        private bool possibleQuery(int id)
+        internal override bool PossibleQuery(int id)
         {
             using (IDbConnection connection = new SqlConnection(ConnectionString))
             {
-                string storedProcedureName = "PossibleStackUpdate";
+                string storedProcedureName = "PossibleFlashcardUpdate";
 
                 var parameters = new DynamicParameters();
                 parameters.Add("@Id", id);
@@ -151,7 +120,65 @@ namespace Flashcards.DEVHAWKZ.Library.Controller
                     return false;
             }
         }
+        /*
+internal void DeleteStack()
+{
+   TableVisualizationEngine.PrintStacks(ViewStacks());
 
-        */
+   int id = Validations.GetValidInt();
+
+   bool possible = possibleQuery(id);
+
+   if (possible)
+   {
+       using (IDbConnection connection = new SqlConnection(ConnectionString))
+       {
+           string storedProcedureName = "DeleteStack";
+
+           var parameters = new DynamicParameters();
+           parameters.Add("@Id", id);
+
+           int rows = connection.Execute(storedProcedureName, parameters, commandType: CommandType.StoredProcedure);
+
+           if (rows > 0)
+           {
+               Console.WriteLine("\nStack deleted succesfully!");
+               Console.ReadKey();
+           }
+
+           else
+           {
+               Console.WriteLine("\nErasing the stach has failed.");
+               Console.ReadKey();
+           }
+       }
+   }
+
+   else
+   {
+       Console.WriteLine("\nThe id you have entered doesn't exist");
+       Console.ReadKey();
+   }
+}
+
+private bool possibleQuery(int id)
+{
+   using (IDbConnection connection = new SqlConnection(ConnectionString))
+   {
+       string storedProcedureName = "PossibleStackUpdate";
+
+       var parameters = new DynamicParameters();
+       parameters.Add("@Id", id);
+
+       var result = connection.QueryFirstOrDefault(storedProcedureName, parameters, commandType: CommandType.StoredProcedure);
+
+       if (result != null)
+           return true;
+       else
+           return false;
+   }
+}
+
+*/
     }
 }

@@ -1,4 +1,4 @@
-﻿using Flashcards.DEVHAWKZ.Library.Model;
+﻿using static Flashcards.DEVHAWKZ.Library.View.TableVisualizationEngine;
 
 namespace Flashcards.DEVHAWKZ.Library.Controller;
 
@@ -62,7 +62,7 @@ internal class Helpers
     internal static string GetStackName()
     {
         Console.Clear();
-        Console.Write("Enter new stack name: ");
+        Console.Write("");
         string stackName = Console.ReadLine();
 
         while(string.IsNullOrEmpty(stackName))
@@ -73,6 +73,27 @@ internal class Helpers
         }
 
         return stackName;
+    }
+
+    internal static bool GetStackID(out int id)
+    {
+        StackQueries stackQueries = new();
+        int idRange = PrintStacks(stackQueries.ViewStacks());
+
+        id = Validations.GetValidInt("\nEnter id of a row in which you want to insert a flashcard: ");
+
+        if(idRange >= id && id >= 0) 
+        {
+            return true;    
+        }
+
+        return false;
+    }
+
+    internal static string GetQuestionOrAnswer(string msg)
+    {
+        string question = Validations.GetValidString($"Enter a {msg} for flashcard: ");
+        return question;
     }
 
 }

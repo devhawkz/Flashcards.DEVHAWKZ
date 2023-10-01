@@ -156,7 +156,8 @@ public class Menu
 
             case "insert":
                 Console.Clear();
-                Console.WriteLine("insert");
+                flashcardQueries.InsertNewFlashcard();
+                Console.WriteLine("Press any key to continue...");
                 Console.ReadKey();
                 break;
 
@@ -169,8 +170,7 @@ public class Menu
 
             case "update":
                 Console.Clear();
-                Console.WriteLine("update");
-                Console.ReadKey();
+                flashcardQueries.UpdateFlashcard();
                 break;
 
             case "delete":

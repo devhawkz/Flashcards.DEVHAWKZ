@@ -7,4 +7,6 @@ internal abstract class Queries
     private string _connectionString = ConfigurationManager.AppSettings.Get("ConnectionString");
 
     internal string ConnectionString { get { return _connectionString; } }
+
+    internal abstract bool PossibleQuery(int id);
 }

@@ -29,7 +29,7 @@ internal class StackQueries : Queries
             string storedprocedureName = "InsertNewStack";
 
             var parameters = new DynamicParameters();
-            parameters.Add("@Name", Helpers.GetStackName());
+            parameters.Add("@Name", Validations.GetValidString("Enter new stack name: "));
 
             int rows = connection.Execute(storedprocedureName, parameters, commandType: CommandType.StoredProcedure);
 
@@ -51,15 +51,15 @@ internal class StackQueries : Queries
     {
         TableVisualizationEngine.PrintStacks(ViewStacks());
 
-        int id = Validations.GetValidInt();
+        int id = Validations.GetValidInt("Enter a row you want to update: ");
 
-        bool possible = possibleQuery(id);
+        bool possible = PossibleQuery(id);
 
         if(possible) 
         {
             using (IDbConnection connection = new SqlConnection(ConnectionString)) 
             {
-                string name = Validations.GetValidString();
+                string name = Validations.GetValidString("Enter new name of the stack: ");
                 string storedProcedureName = "UpdateStack";
 
                 var parameters = new DynamicParameters();
@@ -93,9 +93,9 @@ internal class StackQueries : Queries
     {
         TableVisualizationEngine.PrintStacks(ViewStacks());
 
-        int id = Validations.GetValidInt();
+        int idToDelete = Validations.GetValidInt("\nEnter an id of a row you want to delete: ");
 
-        bool possible = possibleQuery(id);
+        bool possible = PossibleQuery(idToDelete);
 
         if (possible)
         {
@@ -104,7 +104,7 @@ internal class StackQueries : Queries
                 string storedProcedureName = "DeleteStack";
 
                 var parameters = new DynamicParameters();
-                parameters.Add("@Id", id);
+                parameters.Add("@Id", idToDelete);
 
                 int rows = connection.Execute(storedProcedureName, parameters, commandType: CommandType.StoredProcedure);
 
@@ -129,7 +129,7 @@ internal class StackQueries : Queries
         }
     }
 
-    private bool possibleQuery(int id)
+    internal override bool PossibleQuery(int id)
     {
         using (IDbConnection connection = new SqlConnection(ConnectionString))
         {
