@@ -53,7 +53,7 @@ internal class StackQueries : Queries
 
         int id = Validations.GetValidInt("Enter a row you want to update: ");
 
-        bool possible = PossibleQuery(id);
+        bool possible = PossibleQuery(id, "PossibleStackUpdate");
 
         if(possible) 
         {
@@ -95,7 +95,7 @@ internal class StackQueries : Queries
 
         int idToDelete = Validations.GetValidInt("\nEnter an id of a row you want to delete: ");
 
-        bool possible = PossibleQuery(idToDelete);
+        bool possible = PossibleQuery(idToDelete, "PossibleStackUpdate");
 
         if (possible)
         {
@@ -116,7 +116,7 @@ internal class StackQueries : Queries
 
                 else
                 {
-                    Console.WriteLine("\nErasing the stach has failed.");
+                    Console.WriteLine("\nErasing the stack has failed.");
                     Console.ReadKey();
                 }
             }
@@ -126,24 +126,6 @@ internal class StackQueries : Queries
         {
             Console.WriteLine("\nThe id you have entered doesn't exist");
             Console.ReadKey();
-        }
-    }
-
-    internal override bool PossibleQuery(int id)
-    {
-        using (IDbConnection connection = new SqlConnection(ConnectionString))
-        {
-            string storedProcedureName = "PossibleStackUpdate";
-
-            var parameters = new DynamicParameters();
-            parameters.Add("@Id", id);
-
-            var result = connection.QueryFirstOrDefault(storedProcedureName, parameters, commandType: CommandType.StoredProcedure);
-            
-            if(result != null) 
-                return true;
-            else
-                return false;
         }
     }
 }

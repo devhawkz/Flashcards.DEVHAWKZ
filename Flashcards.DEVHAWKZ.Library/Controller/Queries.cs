@@ -1,4 +1,7 @@
-﻿using System.Configuration;
+﻿using Dapper;
+using Microsoft.Data.SqlClient;
+using System.Configuration;
+using System.Data;
 
 namespace Flashcards.DEVHAWKZ.Library.Controller;
 
@@ -8,5 +11,19 @@ internal abstract class Queries
 
     internal string ConnectionString { get { return _connectionString; } }
 
-    internal abstract bool PossibleQuery(int id);
+    internal bool PossibleQuery(int id, string storedProcedureName)
+    {
+        using (IDbConnection connection = new SqlConnection(ConnectionString))
+        {
+            var parameters = new DynamicParameters();
+            parameters.Add("@Id", id);
+
+            var result = connection.QueryFirstOrDefault(storedProcedureName, parameters, commandType: CommandType.StoredProcedure);
+
+            if (result != null)
+                return true;
+            else
+                return false;
+        }
+    }
 }

@@ -67,7 +67,7 @@ namespace Flashcards.DEVHAWKZ.Library.Controller
 
             int id = Validations.GetValidInt("Enter a row you want to update: ");
 
-            bool possible = PossibleQuery(id);
+            bool possible = PossibleQuery(id, "PossibleFlashcardUpdate");
 
             if (possible)
             {
@@ -103,82 +103,47 @@ namespace Flashcards.DEVHAWKZ.Library.Controller
             }
         }
 
-        internal override bool PossibleQuery(int id)
+
+        internal void DeleteFlashcard()
         {
-            using (IDbConnection connection = new SqlConnection(ConnectionString))
+            PrintFlashcards(ViewFlashcards());
+
+            int id = Validations.GetValidInt("Enter a row you want to delete: ");
+
+            bool possible = PossibleQuery(id, "PossibleFlashcardUpdate");
+
+            if (possible)
             {
-                string storedProcedureName = "PossibleFlashcardUpdate";
+                using (IDbConnection connection = new SqlConnection(ConnectionString))
+                {
+                    string storedProcedureName = "DeleteFlashcard";
 
-                var parameters = new DynamicParameters();
-                parameters.Add("@Id", id);
+                    var parameters = new DynamicParameters();
+                    parameters.Add("@Id", id);
 
-                var result = connection.QueryFirstOrDefault(storedProcedureName, parameters, commandType: CommandType.StoredProcedure);
+                    int rows = connection.Execute(storedProcedureName, parameters, commandType: CommandType.StoredProcedure);
 
-                if (result != null)
-                    return true;
-                else
-                    return false;
+                    if (rows > 0)
+                    {
+                        Console.WriteLine("\nFlashcard deleted succesfully!");
+                        Console.ReadKey();
+                    }
+
+                    else
+                    {
+                        Console.WriteLine("\nErasing the flashcard has failed.");
+                        Console.ReadKey();
+                    }
+                }
+            }
+
+            else
+            {
+                Console.WriteLine("\nThe id you have entered doesn't exist");
+                Console.ReadKey();
             }
         }
-        /*
-internal void DeleteStack()
-{
-   TableVisualizationEngine.PrintStacks(ViewStacks());
 
-   int id = Validations.GetValidInt();
 
-   bool possible = possibleQuery(id);
-
-   if (possible)
-   {
-       using (IDbConnection connection = new SqlConnection(ConnectionString))
-       {
-           string storedProcedureName = "DeleteStack";
-
-           var parameters = new DynamicParameters();
-           parameters.Add("@Id", id);
-
-           int rows = connection.Execute(storedProcedureName, parameters, commandType: CommandType.StoredProcedure);
-
-           if (rows > 0)
-           {
-               Console.WriteLine("\nStack deleted succesfully!");
-               Console.ReadKey();
-           }
-
-           else
-           {
-               Console.WriteLine("\nErasing the stach has failed.");
-               Console.ReadKey();
-           }
-       }
-   }
-
-   else
-   {
-       Console.WriteLine("\nThe id you have entered doesn't exist");
-       Console.ReadKey();
-   }
-}
-
-private bool possibleQuery(int id)
-{
-   using (IDbConnection connection = new SqlConnection(ConnectionString))
-   {
-       string storedProcedureName = "PossibleStackUpdate";
-
-       var parameters = new DynamicParameters();
-       parameters.Add("@Id", id);
-
-       var result = connection.QueryFirstOrDefault(storedProcedureName, parameters, commandType: CommandType.StoredProcedure);
-
-       if (result != null)
-           return true;
-       else
-           return false;
-   }
-}
-
-*/
     }
 }
