@@ -24,7 +24,7 @@ namespace Flashcards.DEVHAWKZ.Library.Controller
             Console.Write($"{message}");
             string idText = Console.ReadLine();
 
-            int id;
+            int id = 0;
             
             while (!int.TryParse(idText, out id))
             {

@@ -125,6 +125,9 @@ namespace Flashcards.DEVHAWKZ.Library.Controller
 
                     if (rows > 0)
                     {
+                        string anotherStoredProcedureName = "UpdateId";
+
+
                         Console.WriteLine("\nFlashcard deleted succesfully!");
                         Console.ReadKey();
                     }

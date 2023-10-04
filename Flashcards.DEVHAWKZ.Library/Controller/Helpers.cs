@@ -46,7 +46,7 @@ internal class Helpers
             return true;    
         }
 
-        return false;
+        main menu\return false;
     }
 
     internal static string GetQuestionOrAnswer(string msg)

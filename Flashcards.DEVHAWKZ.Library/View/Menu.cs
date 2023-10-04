@@ -103,6 +103,7 @@ public class Menu
             case "view":
                 Console.Clear();
                 PrintStacks(stackQueries.ViewStacks());
+                Console.WriteLine("\n\nPress any key to get back...");
                 Console.ReadKey();
                 break;
 
@@ -164,6 +165,7 @@ public class Menu
             case "view":
                 Console.Clear();
                 PrintFlashcards(flashcardQueries.ViewFlashcards());
+                Console.WriteLine("\n\nPress any key to get back...");
                 Console.ReadKey();
                 break;
 
@@ -175,8 +177,7 @@ public class Menu
 
             case "delete":
                 Console.Clear();
-                Console.WriteLine("delete");
-                Console.ReadKey();
+                flashcardQueries.DeleteFlashcard();
                 break;
 
             default:

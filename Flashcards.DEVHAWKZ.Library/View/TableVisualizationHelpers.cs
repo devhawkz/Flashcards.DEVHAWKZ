@@ -27,11 +27,11 @@ internal static class TableVisualizationHelpers
         flashcardsTable.Columns.Add("ID", typeof(int));
         flashcardsTable.Columns.Add("Question", typeof(string));
         flashcardsTable.Columns.Add("Answer", typeof(string));
-        flashcardsTable.Columns.Add("Stack name", typeof(string));
+        flashcardsTable.Columns.Add("Stack Id", typeof(string));
 
         for (int i = 0; i < flashcards.Count; i++)
         {
-            flashcardsTable.Rows.Add(flashcards[i].Id, flashcards[i].Question, flashcards[i].Answer, flashcards[i].StackName);
+            flashcardsTable.Rows.Add(flashcards[i].Id, flashcards[i].Question, flashcards[i].Answer, flashcards[i].StackId);
         }
 
         return flashcardsTable;
